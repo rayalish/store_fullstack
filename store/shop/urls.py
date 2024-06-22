@@ -1,13 +1,19 @@
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
+from .views import ListCreateProductAPIView
 from . import views
 
 app_name = 'shop'
+
+router = DefaultRouter()
+
 
 urlpatterns = [
     path('categ/', views.ListCreateCategAPIView.as_view(), name='categ-list'),
     path('categ/one/<int:pk>/', views.RetrieveUpdateDestroyCategAPIView.as_view(), name='categ_one'), 
     path('categ/<int:category_id>/products/', views.ProductByCategoryList.as_view(), name='products-by-category'),  
-    path('', views.ListCreateProductAPIView.as_view(), name='shop'),
+    path('items/', views.ListCreateProductAPIView.as_view(), name='shop'),
     path('search/', views.ProductSearchView.as_view(), name = 'products-search'),
 
     path('quantity_type/', views.ListCreateQuanAPIView.as_view(), name='quantity-type-list'), 
@@ -27,4 +33,5 @@ urlpatterns = [
     path('admin/quantity_type/create/', views.ListCreateQuanAPIView.as_view(), name='admin-quantity-type-create'),
     path('admin/quantity_type/delete/<int:pk>/', views.RetrieveUpdateDestroyQuanAPIView.as_view(), name='admin-quantity-type-delete'),
     path('admin/quantity_type/update/<int:pk>/', views.RetrieveUpdateDestroyQuanAPIView.as_view(), name='admin-quantity-type-update'),
+
 ]
